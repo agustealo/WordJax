@@ -34,7 +34,7 @@ Note: `.no-sidebar` styles are not automatically loaded.
 Deployment
 ---------------
 
-1. Download `word_jax` from GitHub. The first thing you want to do is copy the `word_jax` directory and change the name to match your project.
+1. Download `WordJax` from GitHub. The first thing you want to do is copy the `word_jax` directory and change the name to match your project.
 2. Search for `'word_jax'` (inside single quotations) to capture the text domain.
 3. Search for `word_jax_` to capture all the function names.
 4. Search for `Text Domain: word_jax` in `style.css`.
