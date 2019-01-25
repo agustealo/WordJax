@@ -10,7 +10,6 @@ Developed by Agustealo Johnson.
 
 Heavily inspired by the awesome WordPress starter theme called `_s`, or `underscores`. A theme meant for hacking so don't use me as a Parent Theme. Instead try turning me into the next, most awesome, WordPress theme out there.
 
-
 * Just right amount of lean, well-commented, modern, HTML5 templates.
 * Helpful 404 template.
 * Custom header implementation in `inc/custom-header.php` just add the code snippet found in the comments of `inc/custom-header.php` to your `header.php` template.
