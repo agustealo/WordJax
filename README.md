@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Automattic/_s.svg?branch=master)](https://travis-ci.org/Automattic/_s)
+[![Build Status](https://travis-ci.org/Agustealo/WordJax.svg?branch=master)](https://travis-ci.org/agustealo/WordJax)
 
 WordJax
 ===
@@ -34,21 +34,12 @@ Note: `.no-sidebar` styles are not automatically loaded.
 Deployment
 ---------------
 
-<<<<<<< HEAD
 1. Download `WordJax` from GitHub. The first thing you want to do is copy the `word_jax` directory and change the name to match your project.
 2. Search for `'word_jax'` (inside single quotations) to capture the text domain.
 3. Search for `word_jax_` to capture all the function names.
 4. Search for `Text Domain: word_jax` in `style.css`.
 5. Search for <code>&nbsp;word_jax</code> (with a space before it) to capture DocBlocks.
 6. Search for `word_jax-` to capture prefixed handles.
-=======
-1. Download `_s` from GitHub. The first thing you want to do is copy the `_s` directory and change the name to match your project.
-2. Search for `'_s'` (inside single quotations) to capture the text domain.
-3. Search for `_s_` to capture all the function names.
-4. Search for `Text Domain: _s` in `style.css`.
-5. Search for <code>&nbsp;_s</code> (with a space before it) to capture DocBlocks.
-6. Search for `_s-` to capture prefixed handles.
->>>>>>> parent of 09f16da... Update README.md
 
 OR
 
