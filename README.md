@@ -1,4 +1,7 @@
-[![Build Status](https://travis-ci.com/agustealo/WordJax.svg?branch=master)](https://travis-ci.org/agustealo/WordJax)
+
+
+## Travis-Build
+[![Build Status](https://api.travis-ci.org/agustealo/WordJax.svg?branch=master)](https://travis-ci.org/agustealo/WordJax)
 
 WordJax
 ===
