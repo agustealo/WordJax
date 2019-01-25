@@ -3,7 +3,6 @@
 WordJax
 ===
 
-
 WordJax is a WordPress starter theme for jumpstarting your next theme development.
 
 Developed by Agustealo Johnson.
