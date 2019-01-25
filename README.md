@@ -1,6 +1,3 @@
-
-
-## Travis-Build
 [![Build Status](https://api.travis-ci.org/agustealo/WordJax.svg?branch=master)](https://travis-ci.org/agustealo/WordJax)
 
 WordJax
