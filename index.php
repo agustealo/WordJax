@@ -10,6 +10,7 @@
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
  * @package WordJax
+ * 
  */
 
 get_header();

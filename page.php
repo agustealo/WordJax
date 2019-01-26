@@ -10,6 +10,7 @@
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
  * @package WordJax
+ * 
  */
 
 get_header();
@@ -36,5 +37,5 @@ get_header();
 	</div><!-- #primary -->
 
 <?php
-get_sidebar();
-get_footer();
+get_template_part( 'template-parts/content', get_sidebar() );
+get_template_part( 'template-parts/content', get_footer() );

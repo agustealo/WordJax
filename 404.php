@@ -5,6 +5,7 @@
  * @link https://codex.wordpress.org/Creating_an_Error_404_Page
  *
  * @package WordJax
+ * 
  */
 
 get_header();
@@ -57,4 +58,4 @@ get_header();
 	</div><!-- #primary -->
 
 <?php
-get_footer();
+get_template_part( 'template-parts/content', get_footer() );

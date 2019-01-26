@@ -2,9 +2,8 @@
 /**
  * Custom template tags for this theme
  *
- * Eventually, some of the functionality here could be replaced by core features.
- *
  * @package WordJax
+ * 
  */
 
 if ( ! function_exists( 'word_jax_posted_on' ) ) :
@@ -17,37 +16,53 @@ if ( ! function_exists( 'word_jax_posted_on' ) ) :
 			$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>';
 		}
 
-		$time_string = sprintf( $time_string,
+		$time_string = sprintf(
+			$time_string,
 			esc_attr( get_the_date( DATE_W3C ) ),
 			esc_html( get_the_date() ),
 			esc_attr( get_the_modified_date( DATE_W3C ) ),
 			esc_html( get_the_modified_date() )
 		);
 
-		$posted_on = sprintf(
-			/* translators: %s: post date. */
-			esc_html_x( 'Posted on %s', 'post date', 'word-jax' ),
-			'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
+		printf(
+			'<span class="posted-on">%1$s<a href="%2$s" rel="bookmark">%3$s</a></span>',
+			word_jax_get_icon_svg( 'watch', 16 ),
+			esc_url( get_permalink() ),
+			$time_string
 		);
-
-		echo '<span class="posted-on">' . $posted_on . '</span>'; // WPCS: XSS OK.
-
 	}
 endif;
 
 if ( ! function_exists( 'word_jax_posted_by' ) ) :
 	/**
-	 * Prints HTML with meta information for the current author.
+	 * Prints HTML with meta information about theme author.
 	 */
 	function word_jax_posted_by() {
-		$byline = sprintf(
-			/* translators: %s: post author. */
-			esc_html_x( 'by %s', 'post author', 'word-jax' ),
-			'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a></span>'
+		printf(
+			/* translators: 1: SVG icon. 2: post author, only visible to screen readers. 3: author link. */
+			'<span class="byline">%1$s<span class="screen-reader-text">%2$s</span><span class="author vcard"><a class="url fn n" href="%3$s">%4$s</a></span></span>',
+			word_jax_get_icon_svg( 'person', 16 ),
+			__( 'Posted by', 'word_jax' ),
+			esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+			esc_html( get_the_author() )
 		);
+	}
+endif;
 
-		echo '<span class="byline"> ' . $byline . '</span>'; // WPCS: XSS OK.
+if ( ! function_exists( 'word_jax_comment_count' ) ) :
+	/**
+	 * Prints HTML with the comment count for the current post.
+	 */
+	function word_jax_comment_count() {
+		if ( ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
+			echo '<span class="comments-link">';
+			echo word_jax_get_icon_svg( 'comment', 16 );
 
+			/* translators: %s: Name of current post. Only visible to screen readers. */
+			comments_popup_link( sprintf( __( 'Leave a comment<span class="screen-reader-text"> on %s</span>', 'word_jax' ), get_the_title() ) );
+
+			echo '</span>';
+		}
 	}
 endif;
 
@@ -56,47 +71,52 @@ if ( ! function_exists( 'word_jax_entry_footer' ) ) :
 	 * Prints HTML with meta information for the categories, tags and comments.
 	 */
 	function word_jax_entry_footer() {
-		// Hide category and tag text for pages.
+
+		// Hide author, post date, category and tag text for pages.
 		if ( 'post' === get_post_type() ) {
-			/* translators: used between list items, there is a space after the comma */
-			$categories_list = get_the_category_list( esc_html__( ', ', 'word-jax' ) );
+
+			// Posted by
+			word_jax_posted_by();
+
+			// Posted on
+			word_jax_posted_on();
+
+			/* translators: used between list items, there is a space after the comma. */
+			$categories_list = get_the_category_list( __( ', ', 'word_jax' ) );
 			if ( $categories_list ) {
-				/* translators: 1: list of categories. */
-				printf( '<span class="cat-links">' . esc_html__( 'Posted in %1$s', 'word-jax' ) . '</span>', $categories_list ); // WPCS: XSS OK.
+				printf(
+					/* translators: 1: SVG icon. 2: posted in label, only visible to screen readers. 3: list of categories. */
+					'<span class="cat-links">%1$s<span class="screen-reader-text">%2$s</span>%3$s</span>',
+					word_jax_get_icon_svg( 'archive', 16 ),
+					__( 'Posted in', 'word_jax' ),
+					$categories_list
+				); // WPCS: XSS OK.
 			}
 
-			/* translators: used between list items, there is a space after the comma */
-			$tags_list = get_the_tag_list( '', esc_html_x( ', ', 'list item separator', 'word-jax' ) );
+			/* translators: used between list items, there is a space after the comma. */
+			$tags_list = get_the_tag_list( '', __( ', ', 'word_jax' ) );
 			if ( $tags_list ) {
-				/* translators: 1: list of tags. */
-				printf( '<span class="tags-links">' . esc_html__( 'Tagged %1$s', 'word-jax' ) . '</span>', $tags_list ); // WPCS: XSS OK.
+				printf(
+					/* translators: 1: SVG icon. 2: posted in label, only visible to screen readers. 3: list of tags. */
+					'<span class="tags-links">%1$s<span class="screen-reader-text">%2$s </span>%3$s</span>',
+					word_jax_get_icon_svg( 'tag', 16 ),
+					__( 'Tags:', 'word_jax' ),
+					$tags_list
+				); // WPCS: XSS OK.
 			}
 		}
 
-		if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
-			echo '<span class="comments-link">';
-			comments_popup_link(
-				sprintf(
-					wp_kses(
-						/* translators: %s: post title */
-						__( 'Leave a Comment<span class="screen-reader-text"> on %s</span>', 'word-jax' ),
-						array(
-							'span' => array(
-								'class' => array(),
-							),
-						)
-					),
-					get_the_title()
-				)
-			);
-			echo '</span>';
+		// Comment count.
+		if ( ! is_singular() ) {
+			word_jax_comment_count();
 		}
 
+		// Edit post link.
 		edit_post_link(
 			sprintf(
 				wp_kses(
-					/* translators: %s: Name of current post. Only visible to screen readers */
-					__( 'Edit <span class="screen-reader-text">%s</span>', 'word-jax' ),
+					/* translators: %s: Name of current post. Only visible to screen readers. */
+					__( 'Edit <span class="screen-reader-text">%s</span>', 'word_jax' ),
 					array(
 						'span' => array(
 							'class' => array(),
@@ -105,7 +125,7 @@ if ( ! function_exists( 'word_jax_entry_footer' ) ) :
 				),
 				get_the_title()
 			),
-			'<span class="edit-link">',
+			'<span class="edit-link">' . word_jax_get_icon_svg( 'edit', 16 ),
 			'</span>'
 		);
 	}
@@ -119,30 +139,101 @@ if ( ! function_exists( 'word_jax_post_thumbnail' ) ) :
 	 * element when on single views.
 	 */
 	function word_jax_post_thumbnail() {
-		if ( post_password_required() || is_attachment() || ! has_post_thumbnail() ) {
+		if ( ! word_jax_can_show_post_thumbnail() ) {
 			return;
 		}
 
 		if ( is_singular() ) :
 			?>
 
-			<div class="post-thumbnail">
+			<figure class="post-thumbnail">
 				<?php the_post_thumbnail(); ?>
-			</div><!-- .post-thumbnail -->
+			</figure><!-- .post-thumbnail -->
 
-		<?php else : ?>
-
-		<a class="post-thumbnail" href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
 			<?php
-			the_post_thumbnail( 'post-thumbnail', array(
-				'alt' => the_title_attribute( array(
-					'echo' => false,
-				) ),
-			) );
+		else :
 			?>
-		</a>
 
-		<?php
+		<figure class="post-thumbnail">
+			<a class="post-thumbnail-inner" href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
+				<?php the_post_thumbnail( 'post-thumbnail' ); ?>
+			</a>
+		</figure>
+
+			<?php
 		endif; // End is_singular().
+	}
+endif;
+
+if ( ! function_exists( 'word_jax_comment_avatar' ) ) :
+	/**
+	 * Returns the HTML markup to generate a user avatar.
+	 */
+	function word_jax_get_user_avatar_markup( $id_or_email = null ) {
+
+		if ( ! isset( $id_or_email ) ) {
+			$id_or_email = get_current_user_id();
+		}
+
+		return sprintf( '<div class="comment-user-avatar comment-author vcard">%s</div>', get_avatar( $id_or_email, word_jax_get_avatar_size() ) );
+	}
+endif;
+
+if ( ! function_exists( 'word_jax_discussion_avatars_list' ) ) :
+	/**
+	 * Displays a list of avatars involved in a discussion for a given post.
+	 */
+	function word_jax_discussion_avatars_list( $comment_authors ) {
+		if ( empty( $comment_authors ) ) {
+			return;
+		}
+		echo '<ol class="discussion-avatar-list">', "\n";
+		foreach ( $comment_authors as $id_or_email ) {
+			printf(
+				"<li>%s</li>\n",
+				word_jax_get_user_avatar_markup( $id_or_email )
+			);
+		}
+		echo '</ol><!-- .discussion-avatar-list -->', "\n";
+	}
+endif;
+
+if ( ! function_exists( 'word_jax_comment_form' ) ) :
+	/**
+	 * Documentation for function.
+	 */
+	function word_jax_comment_form( $order ) {
+		if ( true === $order || strtolower( $order ) === strtolower( get_option( 'comment_order', 'asc' ) ) ) {
+
+			comment_form(
+				array(
+					'logged_in_as' => null,
+					'title_reply'  => null,
+				)
+			);
+		}
+	}
+endif;
+
+if ( ! function_exists( 'word_jax_the_posts_navigation' ) ) :
+	/**
+	 * Documentation for function.
+	 */
+	function word_jax_the_posts_navigation() {
+		the_posts_pagination(
+			array(
+				'mid_size'  => 2,
+				'prev_text' => sprintf(
+					'%s <span class="nav-prev-text">%s</span>',
+					word_jax_get_icon_svg( 'chevron_left', 22 ),
+					__( 'Newer posts', 'word_jax' )
+				),
+				'next_text' => sprintf(
+					'<span class="nav-next-text">%s</span> %s',
+					__( 'Older posts', 'word_jax' ),
+					word_jax_get_icon_svg( 'chevron_right', 22 )
+				),
+			)
+		);
 	}
 endif;

@@ -5,7 +5,16 @@
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
  * @package WordJax
+ * 
  */
+
+/**
+ * WordJax is recomended for WordPress 4.7 or later.
+ */
+if ( version_compare( $GLOBALS['wp_version'], '4.7', '<' ) ) {
+	require get_template_directory() . '/inc/back-compat.php';
+	return;
+}
 
 if ( ! function_exists( 'word_jax_setup' ) ) :
 	/**
@@ -136,6 +145,15 @@ add_action( 'wp_enqueue_scripts', 'word_jax_scripts' );
  * Implement the Custom Header feature.
  */
 require get_template_directory() . '/inc/custom-header.php';
+/**
+ * SVG Icons class.
+ */
+require get_template_directory() . '/inc/classes/class-wordjax-svg-icons.php';
+
+/**
+ * Custom Comment Walker template.
+ */
+require get_template_directory() . '/inc/classes/class-wordjax-walker-comment.php';
 
 /**
  * Custom template tags for this theme.
@@ -146,6 +164,11 @@ require get_template_directory() . '/inc/template-tags.php';
  * Functions which enhance the theme by hooking into WordPress.
  */
 require get_template_directory() . '/inc/template-functions.php';
+
+/**
+ * SVG Icons related functions.
+ */
+require get_template_directory() . '/inc/icon-functions.php';
 
 /**
  * Customizer additions.
