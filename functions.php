@@ -130,6 +130,7 @@ add_action( 'widgets_init', 'word_jax_widgets_init' );
  */
 function word_jax_scripts() {
 	wp_enqueue_style( 'word-jax-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'word-jax-main-css', get_template_directory_uri() . '/css/main.css' );
 
 	wp_enqueue_script( 'word-jax-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
 
