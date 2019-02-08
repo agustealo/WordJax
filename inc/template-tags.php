@@ -1,6 +1,6 @@
 <?php
 /**
- * Custom template tags for this theme
+ * WordJax custom template tags
  *
  * @package WordJax
  * 

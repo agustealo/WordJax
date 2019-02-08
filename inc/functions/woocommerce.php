@@ -189,12 +189,10 @@ add_action( 'woocommerce_after_main_content', 'word_jax_woocommerce_wrapper_afte
  *
  * You can add the WooCommerce Mini Cart to header.php like so ...
  *
-	<?php
-		if ( function_exists( 'word_jax_woocommerce_header_cart' ) ) {
-			word_jax_woocommerce_header_cart();
-		}
-	?>
- */
+ * */
+if ( function_exists( 'word_jax_woocommerce_header_cart' ) ) {
+	word_jax_woocommerce_header_cart();
+}
 
 if ( ! function_exists( 'word_jax_woocommerce_cart_link_fragment' ) ) {
 	/**

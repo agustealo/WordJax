@@ -12,7 +12,7 @@
  * WordJax is recomended for WordPress 4.7 or later.
  */
 if ( version_compare( $GLOBALS['wp_version'], '4.7', '<' ) ) {
-	require get_template_directory() . '/inc/back-compat.php';
+	require get_template_directory() . '/inc/functions/back-compat.php';
 	return;
 }
 
@@ -163,28 +163,28 @@ require get_template_directory() . '/inc/template-tags.php';
 /**
  * Functions which enhance the theme by hooking into WordPress.
  */
-require get_template_directory() . '/inc/template-functions.php';
+require get_template_directory() . '/inc/functions/template-functions.php';
 
 /**
  * SVG Icons related functions.
  */
-require get_template_directory() . '/inc/icon-functions.php';
+require get_template_directory() . '/inc/functions/icon-functions.php';
 
 /**
  * Customizer additions.
  */
-require get_template_directory() . '/inc/customizer.php';
+require get_template_directory() . '/inc/functions/customizer.php';
 
 /**
  * Load Jetpack compatibility file.
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
-	require get_template_directory() . '/inc/jetpack.php';
+	require get_template_directory() . '/inc/functions/jetpack.php';
 }
 
 /**
  * Load WooCommerce compatibility file.
  */
 if ( class_exists( 'WooCommerce' ) ) {
-	require get_template_directory() . '/inc/woocommerce.php';
+	require get_template_directory() . '/inc/functions/woocommerce.php';
 }
